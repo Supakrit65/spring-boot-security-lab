@@ -23,7 +23,6 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
                 // length between 12 and 128 characters
                 new LengthRule(12, 128),
 
-
                 // define some illegal sequences that will fail when >= 5 chars long
                 // alphabetical is of the form 'abcde', numerical is '34567',
                 // qwery is 'asdfg'

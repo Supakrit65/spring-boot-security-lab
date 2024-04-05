@@ -6,7 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
+import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+
+import java.time.Instant;
 
 @Component
 public class AuthenticationEventListener {
@@ -26,5 +31,14 @@ public class AuthenticationEventListener {
             logger.warn("Failed login attempt [incorrect USERNAME]");
         else
             logger.warn("Failed login attempt [incorrect PASSWORD]");
+    }
+
+    @EventListener
+    public void authenticationSuccess(AuthenticationSuccessEvent event) {
+        Authentication authentication = event.getAuthentication();
+        User user = (User) authentication.getPrincipal();
+
+        logger.info("{} has successfully logged in with roles {} at {}",
+                user.getUsername(), user.getAuthorities(), Instant.now());
     }
 }

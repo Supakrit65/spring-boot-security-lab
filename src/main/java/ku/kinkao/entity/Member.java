@@ -1,5 +1,7 @@
 package ku.kinkao.entity;
 
+import jakarta.persistence.Convert;
+import ku.kinkao.config.AttributeEncryptor;
 import lombok.Data;
 
 import jakarta.persistence.Entity;
@@ -13,16 +15,31 @@ import java.util.UUID;
 @Entity
 public class Member {
 
+
     @Id
     @GeneratedValue
     private UUID id;
 
-    private String username;
-    private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String role;
 
+    @Convert(converter = AttributeEncryptor.class)
+    private String username;
+
+
+    private String password;
+
+
+    @Convert(converter = AttributeEncryptor.class)
+    private String firstName;
+
+
+    @Convert(converter = AttributeEncryptor.class)
+    private String lastName;
+
+
+    @Convert(converter = AttributeEncryptor.class)
+    private String email;
+
+
+    private String role;
     private Instant createdAt;
 }

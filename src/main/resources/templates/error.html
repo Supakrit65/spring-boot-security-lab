@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Oops! Something Went Wrong</title>
+  <link th:rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <script th:src="@{/js/bootstrap.min.js}"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      overflow: hidden;
+    }
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .error-container {
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      margin-top: 100px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      animation: floatAnimation 6s ease-in-out infinite;
+    }
+    @keyframes floatAnimation {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+    h1 {
+      font-size: 56px;
+      font-weight: bold;
+      color: #ff416c;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: glitchAnimation 2s infinite;
+    }
+    @keyframes glitchAnimation {
+      0% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+      50% { text-shadow: -2px -2px 4px rgba(0, 0, 0, 0.3); }
+      100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); }
+    }
+    p {
+      font-size: 28px;
+      color: #333;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeInAnimation 2s ease forwards;
+      animation-delay: 1s;
+    }
+    @keyframes fadeInAnimation {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .btn-home {
+      background-color: #ff416c;
+      color: #fff;
+      font-size: 24px;
+      padding: 15px 30px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-home:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.3);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+    .btn-home:hover:before {
+      left: 0;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      animation: particleAnimation 10s linear infinite;
+    }
+    @keyframes particleAnimation {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-1000px) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="error-container">
+        <h1>Oops! Something Went Wrong</h1>
+        <p>We apologize for the inconvenience. Please try again later.</p>
+        <a th:href="@{/}" class="btn btn-home">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function createParticles() {
+    const particleCount = 100;
+    const particleContainer = document.querySelector('body');
+
+    for (let i = 0; i < particleCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.width = Math.random() * 20 + 'px';
+      particle.style.height = particle.style.width;
+      particle.style.left = Math.random() * window.innerWidth + 'px';
+      particle.style.animationDuration = Math.random() * 3 + 7 + 's';
+      particle.style.animationDelay = Math.random() * 5 + 's';
+      particleContainer.appendChild(particle);
+    }
+  }
+
+  createParticles();
+</script>
+</body>
+</html>
